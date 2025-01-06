@@ -13,18 +13,15 @@ end
 ---@param character table
 ---@param data table
 CreateLocalPed = function(character, data)
-    local model, skin = GetPlayerSkin(character)
-
 
     local model, skin = GetPlayerSkin(character)
-
-
 
     SetEntityVisible(PlayerPedId(), false)
 
     SetEntityCoords(PlayerPedId(), data.location.x, data.location.y, data.location.z, 0, 0, 0, false)
     SetEntityHeading(PlayerPedId(), data.location.w)
     lib.requestModel(model)
+    print(model)
     SetPlayerModel(cache.playerId, model)
 
     if skin then
@@ -62,7 +59,6 @@ CreateCamScene = function(character)
     SetOverrideWeather(data.weather)
     NetworkOverrideClockTime(data.time.hours, data.time.minutes, data.time.seconds)
 
-    local resp = CreateLocalPed(character, data)
 
     cam = CreateCameraWithParams('DEFAULT_SCRIPTED_CAMERA', data.camlocation.x, data.camlocation.y, data.camlocation.z,
         data.camrotation.x, data.camrotation.y, data.camrotation.z, data.fov, false, 0)
@@ -77,6 +73,9 @@ CreateCamScene = function(character)
     SetCamActive(cam, true)
     RenderScriptCams(true, false, 0, true, true)
 
+
+
+    Wait(1000)
     if data.vehicle then
         lib.requestModel(data.vehicle, 30000)
         previewvehicle = CreateVehicle(data.vehicle, data.vehiclelocation.x, data.vehiclelocation.y,
@@ -84,7 +83,7 @@ CreateCamScene = function(character)
             data.vehiclelocation.w, false, false)
     end
 
-
+    local resp = CreateLocalPed(character, data)
     -- CreateThread(function()
     --     while DoesCamExist(cam) do
     --         SetUseHiDof()

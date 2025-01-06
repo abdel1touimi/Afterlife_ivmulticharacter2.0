@@ -138,6 +138,7 @@ if Config.framework == 'qb' then
         FreezeEntityPosition(PlayerPedId(), false)
         SetEntityVisible(PlayerPedId(), true)
         local resp = NewCharacterAnimation()
+    end)
 
     RegisterNetEvent('multicharacter:client:spawnLastLocation', function(coords, cData)
         local ped = PlayerPedId()
@@ -172,4 +173,5 @@ if Config.framework == 'qb' then
         TriggerEvent('QBCore:Client:OnPlayerLoaded')
         TriggerServerEvent('Update:RoutingBucket', Config.Routingbucket)
     end)
+
 end

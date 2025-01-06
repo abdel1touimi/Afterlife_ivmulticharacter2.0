@@ -54,17 +54,10 @@ Config.Identifier = 'license'
 Config.maxdob = 2005
 Config.mindob = 1970
 
-<<<<<<< HEAD
-Config.Routingbucket = 1
+Config.Routingbucket = 0
 
 
 Config.NewCharacterSpawn = { -- Scene location for creation of new characters
-=======
-
-
-
-Config.NewSpawn = { -- Scene location for creation of new characters
->>>>>>> 5155201cd3c8ac95a44a58c242757ba14e7bb873
     camcoords = vec3(-1051.2159, -2721.8655, 20.1689),
     camrotation = vec3(1.865273, 0.013506, -120.393661),
     startcoords = vec3(-1042.6187, -2746.0239, 21.3594),

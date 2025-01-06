@@ -19,7 +19,7 @@ if Config.framework == 'qbx' then
         local result = MySQL.query.await('SELECT * FROM playerskins WHERE citizenid = ? AND active = ?', { cid, 1 })
 
         if result[1] then
-            return tonumber(result[1].model), result[1].skin
+            return result[1].model, result[1].skin
         end
     end)
 

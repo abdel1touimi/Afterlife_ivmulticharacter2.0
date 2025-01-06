@@ -20,6 +20,7 @@ client_scripts {
 server_scripts {
     '@oxmysql/lib/MySQL.lua',
     'server/server.lua',
+    'Framework/qbx/server.lua',
     'Framework/qb/server.lua',
     'Framework/esx/server.lua',
 }
