@@ -112,6 +112,11 @@ LastLocation = function()
     Wait(3000)
     AnimpostfxPlay('SwitchSceneMichael',2000,false)
     PlaySoundFrontend(-1, "1st_Person_Transition", 'PLAYER_SWITCH_CUSTOM_SOUNDSET', 0)
+
+    CreateThread( function ()
+        Wait(2000)
+        DestroyCam(Cam, true)
+    end)
     return true
 end
 

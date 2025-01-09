@@ -29,7 +29,13 @@ if Config.framework == 'qb' then
                 info.birthdate = Player.PlayerData.charinfo.birthdate
                 info.type = "Class C Driver License"
             end
-            exports['qb-inventory']:AddItem(src, Config.StarterItems[i].name, Config.StarterItems[i].amount, false, info, 'qb-multicharacter:GiveStarterItems')
+
+            if Config.oxinventory then
+                exports.ox_inventory:AddItem(src, Config.StarterItems[i].name, Config.StarterItems[i].amount,info,false,false)
+            else
+                exports['qb-inventory']:AddItem(src, Config.StarterItems[i].name, Config.StarterItems[i].amount, false, info, 'qb-multicharacter:GiveStarterItems')
+            end
+
         end
     end
 
@@ -153,7 +159,7 @@ if Config.framework == 'qb' then
         local result = MySQL.query.await('SELECT * FROM playerskins WHERE citizenid = ? AND active = ?', { cid, 1 })
 
         if result[1] then
-            return tonumber(result[1].model), result[1].skin
+            return result[1].model, result[1].skin
         end
     end)
 
@@ -165,7 +171,7 @@ if Config.framework == 'qb' then
     RegisterNetEvent('IV:CharacterChosen', function(cData)
         local src = source
 
-        local cData = MySQL.query.await('SELECT * FROM players WHERE citizenid = ?', { data.citizenid })[1]
+        local cData = MySQL.query.await('SELECT * FROM players WHERE citizenid = ?', { cData.citizenid })[1]
         if QBCore.Player.Login(src, cData.citizenid) then
             repeat
                 Wait(10)

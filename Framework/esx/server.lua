@@ -2,9 +2,7 @@ if Config.framework == 'esx' then
     ESX = exports["es_extended"]:getSharedObject()
     
     local DB_TABLES = { users = "identifier" }
-    local SLOTS = Config.Maxslots or 4
     local PREFIX = Config.Prefix or "char"
-    local PRIMARY_IDENTIFIER = Config.Identifier or "license"
 
     MySQL.ready(function()
         local length = 42 + #PREFIX

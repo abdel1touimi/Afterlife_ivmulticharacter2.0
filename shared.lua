@@ -22,6 +22,7 @@ end
 
 Config.framework = GetFramework() -- qb / esx /qbox /ox
 
+Config.oxinventory = false
 Config.illeniumappearance = GetSkinMenu()
 
 Config.StarterItems = {
@@ -48,7 +49,7 @@ Config.appartmentstart = false
 Config.SpawnSelector = false
 
 Config.Prefix = 'char'
-Config.Maxslots = 4 
+Config.Maxslots = 2
 Config.Identifier = 'license'
 
 Config.maxdob = 2005
@@ -68,7 +69,7 @@ Config.skincoords = vec4(-811.7291, 175.1966, 76.7454, 114.4258) -- Location for
 
 Config.CreateMenu = {
     selectionlocation = false, -- Set this to true if you dont want a seperate location for CreateMenu
-    model = 'a_m_y_vinewood_02',
+    model = -20018299,
     dict = 'timetable@ron@ig_3_couch',
     anim = 'base',
     location = vec4(-1377.5295, -1201.0742, 3.4508, 261.4065),
@@ -81,7 +82,7 @@ Config.CreateMenu = {
 Config.CharacterSelection = {
     {
         id = 'casino',
-        weather = 'NEUTRAL',
+        weather = 'EXTRASUNNY',
         time = {
             hours = 7,
             minutes = 00,

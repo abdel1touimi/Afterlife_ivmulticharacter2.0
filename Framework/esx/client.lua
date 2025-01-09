@@ -89,7 +89,7 @@ if Config.framework == 'esx' then
         local model, skin
 
         if character.emptyslot then
-            return Config.CreateMenu.model, Config.DefaultSkin
+            return Config.CreateMenu.model, false
         end
 
         model = character.sex == 'm' and 'mp_m_freemode_01' or 'mp_f_freemode_01'

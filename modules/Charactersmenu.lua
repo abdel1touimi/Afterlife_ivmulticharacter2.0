@@ -13,29 +13,37 @@ end
 ---@param character table
 ---@param data table
 CreateLocalPed = function(character, data)
-
     local model, skin = GetPlayerSkin(character)
+
+    local cm = model
+    if type(cm) == 'string' then
+        if tonumber(cm) then
+            model = tonumber(cm)
+        end
+    end
 
     SetEntityVisible(PlayerPedId(), false)
 
     SetEntityCoords(PlayerPedId(), data.location.x, data.location.y, data.location.z, 0, 0, 0, false)
     SetEntityHeading(PlayerPedId(), data.location.w)
-    lib.requestModel(model)
-    print(model)
-    SetPlayerModel(cache.playerId, model)
 
-    if skin then
-        LoadSkin(skin)
-    end
+    pcall(function()
+        lib.requestModel(model)
+        print(model)
+        SetPlayerModel(cache.playerId, model)
 
-    SetModelAsNoLongerNeeded(model)
-    FreezeEntityPosition(PlayerPedId(), true)
-    lib.requestAnimDict(data.dict)
-    TaskPlayAnim(PlayerPedId(), data.dict, data.anim, -1, -1, -1, 1, 1, true, true, true)
+        if skin then
+            LoadSkin(skin)
+        end
 
+        SetModelAsNoLongerNeeded(model)
+        FreezeEntityPosition(PlayerPedId(), true)
+        lib.requestAnimDict(data.dict)
+        TaskPlayAnim(PlayerPedId(), data.dict, data.anim, -1, -1, -1, 1, 1, true, true, true)
+    end)
     Wait(100)
     SetEntityVisible(PlayerPedId(), true)
-    
+
     return true
 end
 
@@ -62,8 +70,8 @@ CreateCamScene = function(character)
 
     cam = CreateCameraWithParams('DEFAULT_SCRIPTED_CAMERA', data.camlocation.x, data.camlocation.y, data.camlocation.z,
         data.camrotation.x, data.camrotation.y, data.camrotation.z, data.fov, false, 0)
- 
-        SetFocusPosAndVel(data.camlocation.x, data.camlocation.y, data.camlocation.z,0,0,0)
+
+    SetFocusPosAndVel(data.camlocation.x, data.camlocation.y, data.camlocation.z, 0, 0, 0)
 
     SetTimecycleModifier('MIDDAY')
     SetCamUseShallowDofMode(cam, true)
@@ -76,12 +84,14 @@ CreateCamScene = function(character)
 
 
     Wait(1000)
-    if data.vehicle then
-        lib.requestModel(data.vehicle, 30000)
-        previewvehicle = CreateVehicle(data.vehicle, data.vehiclelocation.x, data.vehiclelocation.y,
-            data.vehiclelocation.z,
-            data.vehiclelocation.w, false, false)
-    end
+    pcall(function()
+        if data.vehicle then
+            lib.requestModel(data.vehicle, 30000)
+            previewvehicle = CreateVehicle(data.vehicle, data.vehiclelocation.x, data.vehiclelocation.y,
+                data.vehiclelocation.z,
+                data.vehiclelocation.w, false, false)
+        end
+    end)
 
     local resp = CreateLocalPed(character, data)
     -- CreateThread(function()

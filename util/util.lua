@@ -20,9 +20,9 @@ end
 
 GetPlayerMaxSlots = function(user)
     local extraslots = lib.callback.await('IV:GetExtraSlots', false,user)
-    local slots = 0
+    local slots = Config.Maxslots
     pcall(function ()
-        slots = Config.Maxslots + extraslots
+        slots = slots + extraslots
     end)
 
     return slots
