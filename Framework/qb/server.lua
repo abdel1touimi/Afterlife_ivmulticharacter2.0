@@ -4,6 +4,8 @@ if Config.framework == 'qb' then
 
     AddEventHandler('QBCore:Server:PlayerLoaded', function(Player)
         Wait(1000) -- 1 second should be enough to do the preloading in other resources
+
+        SetPlayerRoutingBucket(Player.PlayerData.source,Config.Routingbucket)
         hasDonePreloading[Player.PlayerData.source] = true
     end)
 

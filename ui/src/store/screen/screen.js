@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 // characterselection, charactercreator
-const initialState = ''
+const initialState = 'characterselection'
 
 export const screenSlice = createSlice({
   name: 'screen',

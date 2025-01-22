@@ -129,6 +129,8 @@ if Config.framework == 'qbx' then
     SelectCharacter = function(id)
         lib.callback.await('qbx_core:server:loadCharacter', false, id)
 
+        TriggerServerEvent('Update:RoutingBucket', Config.Routingbucket)
+        
         if Config.appartmentstart then
             TriggerEvent('apartments:client:setupSpawnUI', id)
         elseif Config.SpawnSelector then

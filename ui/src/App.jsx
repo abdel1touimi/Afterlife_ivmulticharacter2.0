@@ -11,7 +11,7 @@ import { updatescreen } from "./store/screen/screen";
 import Loading from "./components/loading/LoadingScreen";
 
 function App() {
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(true);
   const scene = useSelector((state) => state.screen);
 
   const dispatch = useDispatch();

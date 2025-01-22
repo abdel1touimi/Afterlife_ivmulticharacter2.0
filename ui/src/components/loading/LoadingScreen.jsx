@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import gif from "../../assets/loading.gif";
 const Loading = () => {
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     const handlemessage = (event) => {

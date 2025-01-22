@@ -49,7 +49,7 @@ Config.appartmentstart = false
 Config.SpawnSelector = false
 
 Config.Prefix = 'char'
-Config.Maxslots = 2
+Config.Maxslots = 4
 Config.Identifier = 'license'
 
 Config.maxdob = 2005

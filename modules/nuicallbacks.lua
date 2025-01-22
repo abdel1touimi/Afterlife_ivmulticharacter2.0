@@ -93,10 +93,11 @@ RegisterNUICallback('DeleteCharacter', function(payload, cb)
             break
         end
     end
-
+print(Config.framework)
     if Config.framework == 'qbx' then
         TriggerServerEvent('qbx_core:server:deleteCharacter', option[key].citizenid)
     else
+        print('a')
     local response = lib.callback.await('IV:DeleteCharacters',false, option[key])
     end
 
