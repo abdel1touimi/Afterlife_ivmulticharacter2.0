@@ -132,7 +132,7 @@ if Config.framework == 'qbx' then
         TriggerServerEvent('Update:RoutingBucket', Config.Routingbucket)
         
         if Config.appartmentstart then
-            TriggerEvent('apartments:client:setupSpawnUI', id)
+            TriggerEvent(Config.appartmentevent, id)
         elseif Config.SpawnSelector then
             TriggerEvent('qb-spawn:client:setupSpawns', id)
             TriggerEvent('qb-spawn:client:openUI', true)
@@ -172,7 +172,7 @@ if Config.framework == 'qbx' then
         })
 
         if Config.appartmentstart and Config.SpawnSelector then
-            TriggerEvent('apartments:client:setupSpawnUI', newData)
+            TriggerEvent(Config.appartmentevent, newData)
         else
             FreezeEntityPosition(PlayerPedId(), false)
             SetEntityVisible(PlayerPedId(), true)

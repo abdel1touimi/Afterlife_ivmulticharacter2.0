@@ -49,7 +49,7 @@ end
 
 
 cazm = nil
-local previewvehicle = nil
+previewvehicle = nil
 
 ---@param character table
 CreateCamScene = function(character)
@@ -110,4 +110,11 @@ DeleteCamScene = function()
     DestroyCam(cam, true)
     RenderScriptCams(false, false, 1, true, true)
     DeleteEntity(PlayerPedId())
+
+    CreateThread( function ()
+        Wait(1000)
+        if DoesEntityExist(previewvehicle) then
+            DeleteEntity(previewvehicle)
+        end
+    end)
 end

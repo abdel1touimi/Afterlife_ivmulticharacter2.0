@@ -111,7 +111,7 @@ if Config.framework == 'qb' then
                 QBCore.Commands.Refresh(src)
                 loadHouseData(src)
                 TriggerClientEvent("qb-multicharacter:client:closeNUI", src)
-                TriggerClientEvent('apartments:client:setupSpawnUI', src, newData)
+                TriggerClientEvent(Config.appartmentevent, src, newData)
             else
                 QBCore.Commands.Refresh(src)
                 loadHouseData(src)

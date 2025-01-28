@@ -46,6 +46,7 @@ Config.AdminCommand = 'profiles'
 Config.ProfilEditorCommand = 'editprofile'
 
 Config.appartmentstart = false
+Config.appartmentevent = 'apartments:client:setupSpawnUI' -- ps-housing:client:setupSpawnUI
 Config.SpawnSelector = false
 
 Config.Prefix = 'char'
