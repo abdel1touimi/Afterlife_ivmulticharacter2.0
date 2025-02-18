@@ -13,6 +13,9 @@ end
 ---@param character table
 ---@param data table
 CreateLocalPed = function(character, data)
+
+    pcall( function ()
+        
     local model, skin = GetPlayerSkin(character)
 
     local cm = model
@@ -27,22 +30,24 @@ CreateLocalPed = function(character, data)
     SetEntityCoords(PlayerPedId(), data.location.x, data.location.y, data.location.z, 0, 0, 0, false)
     SetEntityHeading(PlayerPedId(), data.location.w)
 
-    pcall(function()
-        lib.requestModel(model)
-        print(model)
-        SetPlayerModel(cache.playerId, model)
 
-        if skin then
-            LoadSkin(skin)
-        end
+    lib.requestModel(model, 5000)
 
-        SetModelAsNoLongerNeeded(model)
-        FreezeEntityPosition(PlayerPedId(), true)
-        lib.requestAnimDict(data.dict)
-        TaskPlayAnim(PlayerPedId(), data.dict, data.anim, -1, -1, -1, 1, 1, true, true, true)
-    end)
+    SetPlayerModel(cache.playerId, model)
+
+    if skin then
+        LoadSkin(skin)
+    end
+
+    SetModelAsNoLongerNeeded(model)
+    FreezeEntityPosition(PlayerPedId(), true)
+    lib.requestAnimDict(data.dict, 5000)
+    TaskPlayAnim(PlayerPedId(), data.dict, data.anim, -1, -1, -1, 1, 1, true, true, true)
+
     Wait(100)
     SetEntityVisible(PlayerPedId(), true)
+
+    end)
 
     return true
 end
@@ -62,11 +67,10 @@ CreateCamScene = function(character)
 
     local data = GetCurrentScene()
 
-
-
+    if Config.uniqueweathertime then
     SetOverrideWeather(data.weather)
     NetworkOverrideClockTime(data.time.hours, data.time.minutes, data.time.seconds)
-
+    end
 
     cam = CreateCameraWithParams('DEFAULT_SCRIPTED_CAMERA', data.camlocation.x, data.camlocation.y, data.camlocation.z,
         data.camrotation.x, data.camrotation.y, data.camrotation.z, data.fov, false, 0)
@@ -84,16 +88,18 @@ CreateCamScene = function(character)
 
 
     Wait(1000)
-    pcall(function()
-        if data.vehicle then
-            lib.requestModel(data.vehicle, 30000)
-            previewvehicle = CreateVehicle(data.vehicle, data.vehiclelocation.x, data.vehiclelocation.y,
-                data.vehiclelocation.z,
-                data.vehiclelocation.w, false, false)
-        end
-    end)
 
-    local resp = CreateLocalPed(character, data)
+    if data.vehicle then
+        lib.requestModel(data.vehicle, 5000)
+        previewvehicle = CreateVehicle(data.vehicle, data.vehiclelocation.x, data.vehiclelocation.y,
+            data.vehiclelocation.z,
+            data.vehiclelocation.w, false, false)
+    end
+
+
+    CreateLocalPed(character, data)
+
+    Wait(2000)
     -- CreateThread(function()
     --     while DoesCamExist(cam) do
     --         SetUseHiDof()
@@ -111,7 +117,7 @@ DeleteCamScene = function()
     RenderScriptCams(false, false, 1, true, true)
     DeleteEntity(PlayerPedId())
 
-    CreateThread( function ()
+    CreateThread(function()
         Wait(1000)
         if DoesEntityExist(previewvehicle) then
             DeleteEntity(previewvehicle)

@@ -11,7 +11,7 @@ import { updatescreen } from "./store/screen/screen";
 import Loading from "./components/loading/LoadingScreen";
 
 function App() {
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(false);
   const scene = useSelector((state) => state.screen);
 
   const dispatch = useDispatch();
@@ -36,7 +36,7 @@ function App() {
   return (
     <>
     {visible &&
-      <div className="h-screen vignette">
+      <div className="h-screen vignette ">
         <CharDetails />
         <SceneSelector />
         <Register />

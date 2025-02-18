@@ -24,10 +24,10 @@ if Config.framework == 'qb' then
                 emptyslot = true,
                 img = '',
                 additionalInfo = {
-                    [1] = 'UNEMPLOYED',
-                    [2] = '0',
-                    [3] = '0',
-                    [4] = '00/00/0000'
+                    'UNEMPLOYED',
+                    '0',
+                    '0',
+                    '00/00/0000'
                 }
             }
         end
@@ -45,10 +45,10 @@ if Config.framework == 'qb' then
                 img = GetResourceKvpString('slotimg' .. tostring(data.charinfo.cid)),
                 sex = data.charinfo.gender == 0 and true or false,
                 additionalInfo = {
-                    [1] = data.job.label,
-                    [2] = data.money.cash,
-                    [3] = data.money.bank,
-                    [4] = data.charinfo.birthdate
+                    data.job.label,
+                    data.money.cash,
+                    data.money.bank,
+                    data.charinfo.birthdate
                 }
             }
         end

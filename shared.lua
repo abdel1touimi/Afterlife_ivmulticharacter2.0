@@ -80,6 +80,9 @@ Config.CreateMenu = {
     fov = 30.0,
 }
 
+
+Config.uniqueweathertime = true
+
 Config.CharacterSelection = {
     {
         id = 'casino',

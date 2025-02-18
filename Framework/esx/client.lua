@@ -19,10 +19,10 @@ if Config.framework == 'esx' then
                 img = '',
                 emptyslot = true,
                 additionalInfo = {
-                    [1] = 'UNEMPLOYED',
-                    [2] = '0',
-                    [3] = '0',
-                    [4] = '00/00/0000'
+                    'UNEMPLOYED',
+                    '0',
+                    '0',
+                    '00/00/0000'
                 }
             }
         end
@@ -41,10 +41,10 @@ if Config.framework == 'esx' then
                 emptyslot = false,
                 img = GetResourceKvpString('slotimg' .. tostring(data.id)),
                 additionalInfo = {
-                    [1] = data.job,
-                    [2] = data.money,
-                    [3] = data.bank,
-                    [4] = data.dateofbirth
+                    data.job,
+                    data.money,
+                    data.bank,
+                    data.dateofbirth
                 }
             }
         end

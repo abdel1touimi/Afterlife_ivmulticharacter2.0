@@ -2,18 +2,13 @@ import React from "react";
 import { useEffect, useState } from "react";
 import gif from "../../assets/loading.gif";
 const Loading = () => {
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(true);
 
   useEffect(() => {
     const handlemessage = (event) => {
       switch (event.data.action) {
         case "loadingscreen":
-          let id = document.getElementById("loading");
-          id.style.opacity = 0;
-          setTimeout(function () {
             setVisible(event.data.data);
-          }, 5000);
-
           break;
       }
     };
@@ -23,11 +18,11 @@ const Loading = () => {
   }, []);
 
   return (
-    visible && (
+    
       <>
         <div
-          id="loading"
-          className="flex items-center justify-center h-screen bg-black transition-opacity duration-1000"
+        style={{opacity: visible ? 1.0 : 0.0}}
+          className="flex items-center justify-center h-screen bg-black transition-opacity duration-300"
         >
           <img
             className="absolute bottom-10 right-10 w-[150px]"
@@ -36,7 +31,6 @@ const Loading = () => {
           />
         </div>
       </>
-    )
   );
 };
 

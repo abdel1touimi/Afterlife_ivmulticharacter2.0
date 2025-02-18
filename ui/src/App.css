@@ -30,8 +30,8 @@ pointer-events: none;
 }
 
 body {
-  background: url(./assets/back.jpg);
-  background-size: cover;
+  /* background: url(./assets/back.jpg);
+  background-size: cover; */
 }
 
 .range-slider::-webkit-slider-thumb {

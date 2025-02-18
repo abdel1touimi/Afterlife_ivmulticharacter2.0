@@ -85,30 +85,28 @@ const CharDetails = () => {
         >
           <div className="absolute top-[45%] left-[70px] translate-y-[-50%] outline-0 border-0 flex gap-4 items-baseline ">
             {playersStore &&
-              playersStore
-                .filter((p, i) => i === counter && p)
-                .map((player) => (
+
                   <div
                     className="min-w-[400px] flex flex-col gap-3"
-                    key={player.id}
+                    key={playersStore[counter].id}
                   >
                     <div className="relative top-4">
                       <div className="absolute mt-[55px] ml-[-35px] flex items-center justify-center text-[12px] bg-[rgba(0,0,0,0.5)] hover:bg-[rgba(0,0,0,0.8)] text-white w-[25px] h-[25px] rounded-[50%] font-bold border-[#C9C9C9] border-[1px]">
-                        <div>{player.id}</div>
+                        <div>{playersStore[counter].id}</div>
                       </div>
 
                       <div className=" relative left-1 top-3 text-[20px] tracking-[6px] uppercase text-[#ffffff86] ">
-                        {player.lastname}
+                        {playersStore[counter].lastname}
                       </div>
                       <div className="text-[48px] font-bold uppercase  text-[#FFFFFF] ">
-                        {player.firstname}
+                        {playersStore[counter].firstname}
                       </div>
                     </div>
 
                     <div className="w-[380px] h-[3px] bg-gradient-to-r from-[#ffffff86] to-[rgba(0,0,0,0)]"></div>
 
                     <ul className="text-[20px] flex flex-row gap-4">
-                      {Object.keys(player.additionalInfo).map((p, i) => (
+                      {Object.keys(playersStore[counter].additionalInfo).map((p, i) => (
                         <li
                           key={p}
                           onMouseEnter={() => nuicallback("hover")}
@@ -116,7 +114,7 @@ const CharDetails = () => {
                         >
                           <img src={icons[i].icon} alt="person" />
                           <span className="text-white absolute mt-[80px] uppercase text-[10px] font-bold">
-                            {formatNumberToCurrency(player.additionalInfo[p])}
+                            {formatNumberToCurrency(playersStore[counter].additionalInfo[p])}
                           </span>
                         </li>
                       ))}
@@ -136,7 +134,7 @@ const CharDetails = () => {
                       </li>
                     </ul>
                   </div>
-                ))}
+                }
           </div>
 
           <div className="absolute bottom-[3%]  left-[50%] translate-x-[-50%] flex flex-row items-center">
@@ -164,7 +162,7 @@ const CharDetails = () => {
                 ></div>
               </div>
 
-              {playersStore.map((player) => (
+              {playersStore && playersStore.map((player) => (
                 <div
                   className="transition-[500ms] p-[10px] flex items-center justify-center"
                   style={{ transform: `translate(${-145 * counter}px)` }}
