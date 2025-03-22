@@ -7,10 +7,11 @@ if Config.framework == 'esx' then
 
     GetPlayerCharactersArray = function()
         local characters = lib.callback.await('IV:GetCharacters')
+        local maxslots = GetPlayerMaxSlots('src') 
 
         option = {}
 
-        for i = 1, GetPlayerMaxSlots('src') do
+        for i = 1, maxslots do
             option[#option + 1] = {
                 id = #option + 1,
                 firstname = 'First Name',
@@ -28,30 +29,30 @@ if Config.framework == 'esx' then
         end
 
 
-
         for _, data in pairs(characters) do
-            option[data.id] = {
-                id = data.id,
-                firstname = data.firstname,
-                lastname = data.lastname,
-                job = data.job,
-                skin = data.skin,
-                model = data.model,
-                sex = data.sex,
-                emptyslot = false,
-                img = GetResourceKvpString('slotimg' .. tostring(data.id)),
-                additionalInfo = {
-                    data.job,
-                    data.money,
-                    data.bank,
-                    data.dateofbirth
+            if data.id <= maxslots then
+                option[data.id] = {
+                    id = data.id,
+                    firstname = data.firstname,
+                    lastname = data.lastname,
+                    job = data.job,
+                    skin = data.skin,
+                    model = data.model,
+                    sex = data.sex,
+                    emptyslot = false,
+                    img = GetResourceKvpString('slotimg' .. tostring(data.id)),
+                    additionalInfo = {
+                        data.job,
+                        data.money,
+                        data.bank,
+                        data.dateofbirth
+                    }
                 }
-            }
+            end
         end
 
         return option
     end
-
 
     GetAllCharacters = function()
         local characters = lib.callback.await('IV:GetAllCharacters')

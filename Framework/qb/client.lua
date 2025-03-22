@@ -11,11 +11,11 @@ if Config.framework == 'qb' then
     GetPlayerCharactersArray = function()
 
         local characters = lib.callback.await('IV:GetCharacters')
-
+        local maxslots = GetPlayerMaxSlots('src') 
         option = {}
 
 
-        for i = 1, GetPlayerMaxSlots('src') do
+        for i = 1, maxslots do
             option[#option + 1] = {
                 id = #option + 1,
                 firstname = 'First Name',
@@ -32,25 +32,25 @@ if Config.framework == 'qb' then
             }
         end
 
-
-
         for _, data in pairs(characters) do
-            option[data.charinfo.cid] = {
-                id = data.charinfo.cid,
-                firstname = data.charinfo.firstname,
-                lastname = data.charinfo.lastname,
-                citizenid = data.citizenid,
-                job = data.job.name,
-                emptyslot = false,
-                img = GetResourceKvpString('slotimg' .. tostring(data.charinfo.cid)),
-                sex = data.charinfo.gender == 0 and true or false,
-                additionalInfo = {
-                    data.job.label,
-                    data.money.cash,
-                    data.money.bank,
-                    data.charinfo.birthdate
+            if data.charinfo.cid <= maxslots then
+                option[data.charinfo.cid] = {
+                    id = data.charinfo.cid,
+                    firstname = data.charinfo.firstname,
+                    lastname = data.charinfo.lastname,
+                    citizenid = data.citizenid,
+                    job = data.job.name,
+                    emptyslot = false,
+                    img = GetResourceKvpString('slotimg' .. tostring(data.charinfo.cid)),
+                    sex = data.charinfo.gender == 0 and true or false,
+                    additionalInfo = {
+                        data.job.label,
+                        data.money.cash,
+                        data.money.bank,
+                        data.charinfo.birthdate
+                    }
                 }
-            }
+            end
         end
 
 
