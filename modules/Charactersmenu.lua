@@ -31,7 +31,7 @@ CreateLocalPed = function(character, data)
     SetEntityHeading(PlayerPedId(), data.location.w)
 
 
-    lib.requestModel(model, 5000)
+    lib.requestModel(model, 25000)
 
     SetPlayerModel(cache.playerId, model)
 
@@ -41,7 +41,7 @@ CreateLocalPed = function(character, data)
 
     SetModelAsNoLongerNeeded(model)
     FreezeEntityPosition(PlayerPedId(), true)
-    lib.requestAnimDict(data.dict, 5000)
+    lib.requestAnimDict(data.dict, 25000)
     TaskPlayAnim(PlayerPedId(), data.dict, data.anim, -1, -1, -1, 1, 1, true, true, true)
 
     Wait(100)
@@ -90,7 +90,7 @@ CreateCamScene = function(character)
     Wait(1000)
 
     if data.vehicle then
-        lib.requestModel(data.vehicle, 5000)
+        lib.requestModel(data.vehicle, 25000)
         previewvehicle = CreateVehicle(data.vehicle, data.vehiclelocation.x, data.vehiclelocation.y,
             data.vehiclelocation.z,
             data.vehiclelocation.w, false, false)
