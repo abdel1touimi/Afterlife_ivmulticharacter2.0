@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import gif from "../../assets/loading.gif";
 const Loading = () => {
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(!import.meta.env.DEV);
 
   useEffect(() => {
     const handlemessage = (event) => {
@@ -21,7 +21,10 @@ const Loading = () => {
     
       <>
         <div
-        style={{opacity: visible ? 1.0 : 0.0}}
+        style={{
+          opacity: visible ? 1.0 : 0.0,
+          pointerEvents: visible ? "auto" : "none",
+        }}
           className="flex items-center justify-center h-screen bg-black transition-opacity duration-300"
         >
           <img

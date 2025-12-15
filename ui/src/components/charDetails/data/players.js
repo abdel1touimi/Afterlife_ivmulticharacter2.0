@@ -1,64 +1,83 @@
 
-
- export const players = false 
-//[
-//   {
-//     id: 1,
-//     firstname: 'Osman',
-//     lastname: 'Saleem',
-//     emptyslot: true,
-//     img: false,
-//     additionalInfo: {
-//       type: 'Civilian',
-//       currencyInHand: 1000,
-//       currencyInBank: 10000000,
-//       DOB: '2004-02-01',
-//       nationality: 'PAKISTAN',
-//     }
-//   },
-//   {
-//     id: 2,
-//     firstname: 'Steve',
-//     lastname: 'Smith',
-//     sex: 'male',
-//     emptyslot: true,
-//     img: false,
-//     additionalInfo: {
-//       type: 'Police',
-//       currencyInHand: 5000,
-//       currencyInBank: 9000000,
-//       DOB: '2002-12-5',
-//       nationality: 'PAKISTAN',
-//     }
-//   },
-
-//   {
-//     id: 3,
-//     firstname: 'First Name',
-//     lastname: 'Last Name',
-//     emptyslot: true,
-//     img: false,
-//     additionalInfo: {
-//       type: 'JOB',
-//       currencyInHand: 'CASH',
-//       currencyInBank: 'BANK',
-//       DOB: 'DATE OF BIRTH',
-//       nationality: 'NATIONALITY',
-//     }
-//   },
-//   {
-//     id: 4,
-//     firstname: 'First Name',
-//     lastname: 'Last Name',
-//     emptyslot: true,
-//     img: false,
-//     additionalInfo: {
-//       type: 'JOB',
-//       currencyInHand: 'CASH',
-//       currencyInBank: 'BANK',
-//       DOB: 'DATE OF BIRTH',
-//       nationality: 'NATIONALITY',
-//     }
-//   },
-
-// ]
+export const players = [
+  {
+    id: 1,
+    firstname: "Osman",
+    lastname: "Saleem",
+    sex: true,
+    emptyslot: false,
+    img: "",
+    identifier: "dev-1",
+    job: "Civilian",
+    cash: 1000,
+    bank: 10000000,
+    dob: "2004-02-01",
+    additionalInfo: {
+      type: "Civilian",
+      currencyInHand: 1000,
+      currencyInBank: 10000000,
+      DOB: "2004-02-01",
+      nationality: "Pakistan",
+    },
+  },
+  {
+    id: 2,
+    firstname: "Steve",
+    lastname: "Smith",
+    sex: true,
+    emptyslot: false,
+    img: "",
+    identifier: "dev-2",
+    job: "Police",
+    cash: 5000,
+    bank: 9000000,
+    dob: "2002-12-05",
+    additionalInfo: {
+      type: "Police",
+      currencyInHand: 5000,
+      currencyInBank: 9000000,
+      DOB: "2002-12-05",
+      nationality: "USA",
+    },
+  },
+  {
+    id: 3,
+    firstname: "First Name",
+    lastname: "Last Name",
+    sex: false,
+    emptyslot: true,
+    img: "",
+    identifier: "dev-3",
+    job: "JOB",
+    cash: "CASH",
+    bank: "BANK",
+    dob: "DATE OF BIRTH",
+    additionalInfo: {
+      type: "JOB",
+      currencyInHand: "CASH",
+      currencyInBank: "BANK",
+      DOB: "DATE OF BIRTH",
+      nationality: "NATIONALITY",
+    },
+  },
+  {
+    id: 4,
+    firstname: "First Name",
+    lastname: "Last Name",
+    sex: true,
+    emptyslot: true,
+    img: "",
+    identifier: "dev-4",
+    job: "JOB",
+    cash: "CASH",
+    bank: "BANK",
+    dob: "DATE OF BIRTH",
+    additionalInfo: {
+      type: "JOB",
+      currencyInHand: "CASH",
+      currencyInBank: "BANK",
+      DOB: "DATE OF BIRTH",
+      nationality: "NATIONALITY",
+    },
+  },
+];

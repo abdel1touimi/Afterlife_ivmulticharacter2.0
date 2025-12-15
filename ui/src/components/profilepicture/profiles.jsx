@@ -93,6 +93,7 @@ function Profiles() {
             <div className="  w-[fit-content] flex gap-5">
               {playerdata.map((data, index) => !data.emptyslot && (
                 <div
+                  key={data.id || index}
                   onClick={() => {
                     if (!data.emptyslot) {
                       setEdit(true);

@@ -85,7 +85,7 @@ function AdminPanel() {
 
           <div className="grid grid-cols-3 gap-3  h-[480px] overflow-y-scroll">
             {characters.filter(character => (character.firstname.toLowerCase().includes(searchvalue.toLowerCase()))).map((data,index) => (
-              <div onClick={() => {
+              <div key={data.identifier || data.id || index} onClick={() => {
                 nuicallback('GetSlots',data.identifier).then((response) => {
                   setSlots(response)
                   setEditingid(index);

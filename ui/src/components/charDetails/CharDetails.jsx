@@ -81,36 +81,40 @@ const CharDetails = () => {
       ) : (
         <div
           style={{ display: scene == "characterselection" ? "flex" : "none" }}
-          className="h-screen an"
+          className="h-screen an vignette relative"
         >
-          <div className="absolute top-[45%] left-[70px] translate-y-[-50%] outline-0 border-0 flex gap-4 items-baseline ">
+          <div className="absolute top-[44%] left-[60px] translate-y-[-50%] outline-0 border-0 flex gap-4 items-baseline text-white">
             {playersStore &&
-
                   <div
-                    className="min-w-[400px] flex flex-col gap-3"
+                    className="min-w-[420px] flex flex-col gap-4 info-panel p-6"
                     key={playersStore[counter].id}
                   >
-                    <div className="relative top-4">
-                      <div className="absolute mt-[55px] ml-[-35px] flex items-center justify-center text-[12px] bg-[rgba(0,0,0,0.5)] hover:bg-[rgba(0,0,0,0.8)] text-white w-[25px] h-[25px] rounded-[50%] font-bold border-[#C9C9C9] border-[1px]">
-                        <div>{playersStore[counter].id}</div>
+                    <div className="flex items-center gap-3 text-xs uppercase tracking-[2px] text-[#e2e8f0]">
+                      <div className="info-pill">
+                        Slot #{playersStore[counter].id}
                       </div>
+                      <div className="info-pill">
+                        {playersStore[counter].additionalInfo.type || "CIVILIAN"}
+                      </div>
+                    </div>
 
-                      <div className=" relative left-1 top-3 text-[20px] tracking-[6px] uppercase text-[#ffffff86] ">
+                    <div className="relative top-2">
+                      <div className="text-[18px] tracking-[6px] uppercase text-[#ffffff86] ">
                         {playersStore[counter].lastname}
                       </div>
-                      <div className="text-[48px] font-bold uppercase  text-[#FFFFFF] ">
+                      <div className="text-[52px] font-bold uppercase text-white drop-shadow-[0_6px_18px_rgba(0,0,0,0.35)] leading-[1.05]">
                         {playersStore[counter].firstname}
                       </div>
                     </div>
 
-                    <div className="w-[380px] h-[3px] bg-gradient-to-r from-[#ffffff86] to-[rgba(0,0,0,0)]"></div>
+                    <div className="info-divider"></div>
 
-                    <ul className="text-[20px] flex flex-row gap-4">
+                    <ul className="text-[20px] flex flex-row gap-3 items-center info-stats">
                       {Object.keys(playersStore[counter].additionalInfo).map((p, i) => (
                         <li
                           key={p}
                           onMouseEnter={() => nuicallback("hover")}
-                          className="flex flex-col w-[38px] h-[38px] items-center justify-center   bg-[rgba(0,0,0,0.5)] border-[1px] border-[#C9C9C9] gap-2 inf"
+                          className="flex flex-col items-center justify-center icon-button gap-1"
                         >
                           <img src={icons[i].icon} alt="person" />
                           <span className="text-white absolute mt-[80px] uppercase text-[10px] font-bold">
@@ -125,7 +129,7 @@ const CharDetails = () => {
                           nuicallback("click");
                         }}
                         onMouseEnter={() => nuicallback("hover")}
-                        className="flex flex-col w-[38px] h-[38px] items-center justify-center   bg-[rgba(0,0,0,0.5)] border-[1px] border-[#C9C9C9] gap-2 inf"
+                        className="flex flex-col w-[52px] h-[52px] items-center justify-center icon-button gap-2"
                       >
                         <img src={settingsicon} alt="person" />
                         <span className="text-white absolute mt-[80px] uppercase text-[10px] font-bold">
@@ -137,24 +141,23 @@ const CharDetails = () => {
                 }
           </div>
 
-          <div className="absolute bottom-[3%]  left-[50%] translate-x-[-50%] flex flex-row items-center">
+          <div className="absolute bottom-[5%] left-[50%] translate-x-[-50%] flex flex-row items-center gap-3">
             <img
-              className="p-2 opacity-80 hover:opacity-100"
+              className="p-2 opacity-80 hover:opacity-100 icon-button cursor-pointer"
               onMouseEnter={() => nuicallback("hover")}
               src={lefticon}
               onClick={handleQ}
               alt=""
             />
 
-            <div className="overflow-hidden w-[435px] flex flex-row items-center">
-     
+            <div className="overflow-hidden w-[470px] flex flex-row items-center carousel-window border border-[rgba(255,255,255,0.08)]">
 
             <div
-                className="transition-[500ms] p-[10px] flex items-center justify-center"
+                className="transition-[500ms] p-[12px] flex items-center justify-center"
                 style={{ transform: `translate(${-145 * counter}px)` }}
               >
                 <div
-                  className="bg-[#00000086] w-[125px] h-[150px] border-[1px] border-[#C9C9C9] flex flex-col justify-between transition deletebutton"
+                  className="char-card w-[130px] h-[160px] flex flex-col justify-between transition deletebutton bg-[length:120px] float-anim"
                   style={{
                     background: `radial-gradient(circle, rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 100%)`,
                     backgroundPosition: "center",
@@ -162,13 +165,16 @@ const CharDetails = () => {
                 ></div>
               </div>
 
-              {playersStore && playersStore.map((player) => (
+              {playersStore && playersStore.map((player, index) => (
                 <div
-                  className="transition-[500ms] p-[10px] flex items-center justify-center"
+                  key={player.id}
+                  className="transition-[500ms] p-[12px] flex items-center justify-center cursor-pointer"
                   style={{ transform: `translate(${-145 * counter}px)` }}
+                  onMouseEnter={() => nuicallback("hover")}
+                  onClick={() => handlecharacterswitch(index)}
                 >
                   <div
-                    className="bg-[#00000086] w-[125px] h-[150px] border-[1px] border-[#C9C9C9] flex flex-col justify-between transition deletebutton bg-[length:120px]"
+                    className={`char-card w-[130px] h-[160px] flex flex-col justify-between transition deletebutton bg-[length:120px] ${counter + 1 == player.id ? "active-card float-anim" : ""}`}
                     style={{
                       transform:
                         counter + 1 == player.id ? "scale(1.1)" : "scale(1.0)",
@@ -205,11 +211,11 @@ const CharDetails = () => {
               ))}
 
               <div
-                className="transition-[500ms] p-[10px] flex items-center justify-center"
+                className="transition-[500ms] p-[12px] flex items-center justify-center"
                 style={{ transform: `translate(${-145 * counter}px)` }}
               >
                 <div
-                  className="bg-[#00000086] w-[125px] h-[150px] border-[1px] border-[#C9C9C9] flex flex-col justify-between transition deletebutton"
+                  className="char-card w-[130px] h-[160px] flex flex-col justify-between transition deletebutton bg-[length:120px] float-anim"
                   style={{
                     background: `radial-gradient(circle, rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 100%)`,
                     backgroundPosition: "center",
@@ -221,7 +227,7 @@ const CharDetails = () => {
             </div>
 
             <img
-              className="p-2 opacity-80 hover:opacity-100"
+              className="p-2 opacity-80 hover:opacity-100 icon-button cursor-pointer"
               onMouseEnter={() => nuicallback("hover")}
               src={righticon}
               onClick={handleE}
@@ -232,7 +238,7 @@ const CharDetails = () => {
           <div
             onClick={handleplay}
             onMouseEnter={() => nuicallback("hover")}
-            className="absolute bottom-[23%] left-[50%] translate-x-[-50%] flex items-center justify-center bg-[rgba(0,0,0,0.5)]  border-[1px] border-[#C9C9C9]  hover:bg-[rgba(0,0,0,0.8)]  w-[80px] h-[40px] "
+            className="absolute bottom-[25%] left-[50%] translate-x-[-50%] flex items-center justify-center accent-pill bg-[rgba(0,0,0,0.5)] border border-[#C9C9C9] hover:bg-[rgba(0,0,0,0.8)] w-[96px] h-[44px] cursor-pointer shadow-2xl pulse"
           >
             <img className="w-[20px] " src={playicon} alt="" />
           </div>

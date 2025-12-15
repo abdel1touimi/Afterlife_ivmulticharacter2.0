@@ -58,7 +58,7 @@ const Credits = () => {
             <div>
                 <div className="flex flex-col gap-4 center-abs">
                     {config.credits.map((data) => (
-                        <div className="flex flex-col gap-1 items-center">
+                        <div key={data.title} className="flex flex-col gap-1 items-center">
                             <div className="ANTON text-3xl text-gray-100 opacity-50">{data.title}</div>
                             <div className="ANTON text-2xl text-gray-100">{data.description}</div>
                         </div>

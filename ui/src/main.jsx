@@ -9,7 +9,9 @@ import ConfigProvider from './providers/configprovider.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Provider store={store}>
-    <BrowserRouter>
+    <BrowserRouter
+      future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
+    >
       <StrictMode>
       <ConfigProvider>
         <App />

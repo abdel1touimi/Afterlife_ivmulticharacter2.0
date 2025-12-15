@@ -49,9 +49,10 @@ function SceneSelector() {
     scene == 'settings' &&
       <>
       <div className="absolute top-10 left-[50%] translate-x-[-50%] an">
-        <div className="flex flex-row gap-[15px]">
+        <div className="flex flex-row gap-[15px] glass-card p-3 rounded-2xl shadow-2xl">
           {config.Scenes.map(data => (
             <div
+            key={data.id}
             onMouseEnter={() => {
               if (counter != data.id){
                 nuicallback('hover')
@@ -64,7 +65,7 @@ function SceneSelector() {
                 backgroundPosition: 'center',
                 transform: counter == data.id ? "scale(1.1)" : "scale(1.0)",
               }}
-              className="w-[150px] h-[80px] transition bg-[#00000086] border-[1px] border-[#C9C9C9]"
+              className={`w-[150px] h-[80px] transition scene-card ${counter == data.id ? "active" : ""}`}
             >
               <div className="px-2 py-1 text-white">{data.label}</div>
             </div>
