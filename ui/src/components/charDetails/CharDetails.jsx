@@ -5,16 +5,24 @@ import { nuicallback } from "../../utils/nuicallback";
 import { players } from "./data/players";
 import { useDispatch, useSelector } from "react-redux";
 import { icons } from "./data/icons";
-import righticon from "../../assets/arrow-right.png";
-import lefticon from "../../assets/arrow-left.png";
 import settingsicon from "../../assets/setting.png";
 import playicon from "../../assets/arrow.png";
 import { updatescreen } from "../../store/screen/screen";
 import { useConfig } from "../../providers/configprovider";
 import profilepicture from "../../assets/profile.png";
 import profilefemale from "../../assets/profile-female.png";
+import createicon from "../../assets/create.png";
 
-import createicon from "../../assets/create.png"
+const CARD_WIDTH = 150;
+
+const prettifyLabel = (label) => {
+  if (!label) return "";
+  if (label === label.toUpperCase()) return label;
+  return label
+    .replace(/([A-Z])/g, " $1")
+    .replace(/^./, (str) => str.toUpperCase());
+};
+
 const CharDetails = () => {
   const [playersStore, SetPlayersStore] = useState(players);
   const [counter, setCounter] = useState(0);
@@ -74,175 +82,193 @@ const CharDetails = () => {
     return () => window.removeEventListener("message", handlemessage);
   }, []);
 
+  const currentPlayer = playersStore?.[counter];
+
   return (
     <>
       {scene == "deleteconfirm" ? (
         <DeleteConfirm id={counter + 1} />
       ) : (
-        <div
-          style={{ display: scene == "characterselection" ? "flex" : "none" }}
-          className="h-screen an vignette relative"
-        >
-          <div className="absolute top-[44%] left-[60px] translate-y-[-50%] outline-0 border-0 flex gap-4 items-baseline text-white">
-            {playersStore &&
-                  <div
-                    className="min-w-[420px] flex flex-col gap-4 info-panel p-6"
-                    key={playersStore[counter].id}
-                  >
-                    <div className="flex items-center gap-3 text-xs uppercase tracking-[2px] text-[#e2e8f0]">
-                      <div className="info-pill">
-                        Slot #{playersStore[counter].id}
-                      </div>
-                      <div className="info-pill">
-                        {playersStore[counter].additionalInfo.type || "CIVILIAN"}
-                      </div>
-                    </div>
-
-                    <div className="relative top-2">
-                      <div className="text-[18px] tracking-[6px] uppercase text-[#ffffff86] ">
-                        {playersStore[counter].lastname}
-                      </div>
-                      <div className="text-[52px] font-bold uppercase text-white drop-shadow-[0_6px_18px_rgba(0,0,0,0.35)] leading-[1.05]">
-                        {playersStore[counter].firstname}
-                      </div>
-                    </div>
-
-                    <div className="info-divider"></div>
-
-                    <ul className="text-[20px] flex flex-row gap-3 items-center info-stats">
-                      {Object.keys(playersStore[counter].additionalInfo).map((p, i) => (
-                        <li
-                          key={p}
-                          onMouseEnter={() => nuicallback("hover")}
-                          className="flex flex-col items-center justify-center icon-button gap-1"
-                        >
-                          <img src={icons[i].icon} alt="person" />
-                          <span className="text-white absolute mt-[80px] uppercase text-[10px] font-bold">
-                            {formatNumberToCurrency(playersStore[counter].additionalInfo[p])}
-                          </span>
-                        </li>
-                      ))}
-
-                      <li
-                        onClick={() => {
-                          dispatch(updatescreen("settings"));
-                          nuicallback("click");
-                        }}
-                        onMouseEnter={() => nuicallback("hover")}
-                        className="flex flex-col w-[52px] h-[52px] items-center justify-center icon-button gap-2"
-                      >
-                        <img src={settingsicon} alt="person" />
-                        <span className="text-white absolute mt-[80px] uppercase text-[10px] font-bold">
-                          SETTINGS
-                        </span>
-                      </li>
-                    </ul>
+        playersStore && currentPlayer && (
+          <div
+            style={{ display: scene == "characterselection" ? "flex" : "none" }}
+            className="h-screen an vignette relative"
+          >
+            <div className="absolute top-[44%] left-[60px] translate-y-[-50%] outline-0 border-0 flex gap-4 items-baseline text-white">
+              <div className="info-panel" key={currentPlayer.id}>
+                <div className="info-panel__row">
+                  <div className="info-chips">
+                    <span className="info-chip info-chip--accent">
+                      Slot #{currentPlayer.id}
+                    </span>
+                    <span className="info-chip">
+                      {currentPlayer.additionalInfo.type || "CIVILIAN"}
+                    </span>
                   </div>
-                }
-          </div>
+                  <span className={`info-status ${currentPlayer.emptyslot ? "info-status--idle" : "info-status--active"}`}>
+                    {currentPlayer.emptyslot ? "Empty" : "Ready"}
+                  </span>
+                </div>
 
-          <div className="absolute bottom-[5%] left-[50%] translate-x-[-50%] flex flex-row items-center gap-3">
-            <img
-              className="p-2 opacity-80 hover:opacity-100 icon-button cursor-pointer"
-              onMouseEnter={() => nuicallback("hover")}
-              src={lefticon}
-              onClick={handleQ}
-              alt=""
-            />
-
-            <div className="overflow-hidden w-[470px] flex flex-row items-center carousel-window border border-[rgba(255,255,255,0.08)]">
-
-            <div
-                className="transition-[500ms] p-[12px] flex items-center justify-center"
-                style={{ transform: `translate(${-145 * counter}px)` }}
-              >
-                <div
-                  className="char-card w-[130px] h-[160px] flex flex-col justify-between transition deletebutton bg-[length:120px] float-anim"
-                  style={{
-                    background: `radial-gradient(circle, rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 100%)`,
-                    backgroundPosition: "center",
-                  }}
-                ></div>
-              </div>
-
-              {playersStore && playersStore.map((player, index) => (
-                <div
-                  key={player.id}
-                  className="transition-[500ms] p-[12px] flex items-center justify-center cursor-pointer"
-                  style={{ transform: `translate(${-145 * counter}px)` }}
-                  onMouseEnter={() => nuicallback("hover")}
-                  onClick={() => handlecharacterswitch(index)}
-                >
-                  <div
-                    className={`char-card w-[130px] h-[160px] flex flex-col justify-between transition deletebutton bg-[length:120px] ${counter + 1 == player.id ? "active-card float-anim" : ""}`}
-                    style={{
-                      transform:
-                        counter + 1 == player.id ? "scale(1.1)" : "scale(1.0)",
-                      backgroundImage: `radial-gradient(circle, rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 100%), url(${player.img}), url(${player.emptyslot ? createicon : player.sex ? profilepicture : profilefemale})`,
-                      backgroundPosition: "center",
-                    }}
-                  >
-                    <div className=" w-[125px] flex items-end justify-end p-2">
-                      {counter + 1 == player.id && !player.emptyslot && (
-                        <svg
-                          onMouseEnter={() => nuicallback("hover")}
-                          onClick={() => {
-                            dispatch(updatescreen("deleteconfirm"));
-                            nuicallback("click");
-                          }}
-                          className="fill-[#dd2020] hover:fill-[#af1616] w-[13px]"
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 448 512"
-                        >
-                          <path d="M135.2 17.7L128 32 32 32C14.3 32 0 46.3 0 64S14.3 96 32 96l384 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-96 0-7.2-14.3C307.4 6.8 296.3 0 284.2 0L163.8 0c-12.1 0-23.2 6.8-28.6 17.7zM416 128L32 128 53.2 467c1.6 25.3 22.6 45 47.9 45l245.8 0c25.3 0 46.3-19.7 47.9-45L416 128z" />
-                        </svg>
-                      )}
-                    </div>
-                    <div className="text-[#FFFFFF] font-bold uppercase flex justify-center items-center w-[100%] flex-col p-2">
-                      <div className="relative top-2 text-[13px] opacity-60">
-                        {!player.emptyslot && player.lastname}
-                      </div>
-                      <div className="text-[20px]">
-                        {player.emptyslot ? "NEW SLOT" : player.firstname}
-                      </div>
-                    </div>
+                <div className="info-identity">
+                  <div className="info-identity__last">
+                    {currentPlayer.lastname}
+                  </div>
+                  <div className="info-identity__first">
+                    {currentPlayer.firstname}
                   </div>
                 </div>
-              ))}
 
-              <div
-                className="transition-[500ms] p-[12px] flex items-center justify-center"
-                style={{ transform: `translate(${-145 * counter}px)` }}
-              >
-                <div
-                  className="char-card w-[130px] h-[160px] flex flex-col justify-between transition deletebutton bg-[length:120px] float-anim"
-                  style={{
-                    background: `radial-gradient(circle, rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 100%)`,
-                    backgroundPosition: "center",
-                  }}
-                ></div>
+                <div className="info-meta">
+                  <div className="info-meta__item">
+                    <span>Nationality</span>
+                    <strong>{currentPlayer.additionalInfo.nationality || "Unknown"}</strong>
+                  </div>
+                  <div className="info-meta__item">
+                    <span>Date of Birth</span>
+                    <strong>{currentPlayer.additionalInfo.DOB || "--"}</strong>
+                  </div>
+                  <div className="info-meta__item">
+                    <span>Bank</span>
+                    <strong>{formatNumberToCurrency(currentPlayer.additionalInfo.currencyInBank ?? 0)}</strong>
+                  </div>
+                  <div className="info-meta__item">
+                    <span>Cash</span>
+                    <strong>{formatNumberToCurrency(currentPlayer.additionalInfo.currencyInHand ?? 0)}</strong>
+                  </div>
+                </div>
+
+                <div className="info-divider"></div>
+
+                <div className="info-quick">
+                  {Object.keys(currentPlayer.additionalInfo).map((p, i) => {
+                    const value = currentPlayer.additionalInfo[p];
+                    const iconSrc = icons[i]?.icon;
+                    return (
+                      <div
+                        key={p}
+                        className="info-quick__item"
+                        onMouseEnter={() => nuicallback("hover")}
+                      >
+                        <div className="info-quick__icon">
+                          {iconSrc ? <img src={iconSrc} alt={p} /> : <span>{prettifyLabel(p).charAt(0)}</span>}
+                        </div>
+                        <div className="info-quick__body">
+                          <div className="info-quick__label">{prettifyLabel(p)}</div>
+                          <div className="info-quick__value">{formatNumberToCurrency(value)}</div>
+                        </div>
+                      </div>
+                    );
+                  })}
+
+                  <button
+                    onClick={() => {
+                      dispatch(updatescreen("settings"));
+                      nuicallback("click");
+                    }}
+                    onMouseEnter={() => nuicallback("hover")}
+                    className="info-quick__item info-quick__item--action"
+                  >
+                    <div className="info-quick__icon">
+                      <img src={settingsicon} alt="settings" />
+                    </div>
+                    <div className="info-quick__body">
+                      <div className="info-quick__label">Settings</div>
+                      <div className="info-quick__value">Customize</div>
+                    </div>
+                  </button>
+                </div>
               </div>
-
-
             </div>
 
-            <img
-              className="p-2 opacity-80 hover:opacity-100 icon-button cursor-pointer"
-              onMouseEnter={() => nuicallback("hover")}
-              src={righticon}
-              onClick={handleE}
-              alt=""
-            />
-          </div>
+            <div className="character-bar">
+              <div className="character-bar__header">
+                <div>
+                  <div className="character-bar__eyebrow">{config?.Lang?.character || "Character"}</div>
+                  <div className="character-bar__title">{config?.Lang?.description || "Choose your character info"}</div>
+                  <div className="character-bar__hint">Click any card to preview.</div>
+                </div>
+                <div className="character-bar__count">
+                  <span>{String(counter + 1).padStart(2, "0")}</span>
+                  <span className="divider">/</span>
+                  <span>{String(playersStore.length).padStart(2, "0")}</span>
+                </div>
+              </div>
 
-          <div
-            onClick={handleplay}
-            onMouseEnter={() => nuicallback("hover")}
-            className="absolute bottom-[25%] left-[50%] translate-x-[-50%] flex items-center justify-center accent-pill bg-[rgba(0,0,0,0.5)] border border-[#C9C9C9] hover:bg-[rgba(0,0,0,0.8)] w-[96px] h-[44px] cursor-pointer shadow-2xl pulse"
-          >
-            <img className="w-[20px] " src={playicon} alt="" />
+              <div className="character-window">
+                <div
+                  className="character-track"
+                >
+                  {playersStore.map((player, index) => {
+                    const isActive = counter === index;
+                    return (
+                      <div
+                        key={player.id}
+                        className="character-card-shell"
+                        style={{ width: `${CARD_WIDTH}px` }}
+                        onMouseEnter={() => nuicallback("hover")}
+                        onClick={() => handlecharacterswitch(index)}
+                      >
+                        <div
+                          className={`char-card character-card ${isActive ? "active-card" : ""}`}
+                          style={{
+                            backgroundImage: `radial-gradient(circle, rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 100%), url(${player.img}), url(${player.emptyslot ? createicon : player.sex ? profilepicture : profilefemale})`,
+                            backgroundPosition: "center",
+                          }}
+                      >
+                        <div className="character-card__top">
+                          <span className="character-chip">
+                            {player.job || player.additionalInfo?.type || "CIVILIAN"}
+                          </span>
+                            {isActive && !player.emptyslot && (
+                              <button
+                                className="character-delete"
+                                onMouseEnter={() => nuicallback("hover")}
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  dispatch(updatescreen("deleteconfirm"));
+                                  nuicallback("click");
+                                }}
+                                aria-label="Delete character"
+                              >
+                                <svg
+                                  className="fill-current"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  viewBox="0 0 448 512"
+                                >
+                                  <path d="M135.2 17.7L128 32 32 32C14.3 32 0 46.3 0 64S14.3 96 32 96l384 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-96 0-7.2-14.3C307.4 6.8 296.3 0 284.2 0L163.8 0c-12.1 0-23.2 6.8-28.6 17.7zM416 128L32 128 53.2 467c1.6 25.3 22.6 45 47.9 45l245.8 0c25.3 0 46.3-19.7 47.9-45L416 128z" />
+                                </svg>
+                              </button>
+                            )}
+                          </div>
+                          <div className="character-card__body">
+                            <div className="character-card__lastname">
+                              {player.emptyslot ? config?.Lang?.create || "CREATE" : player.lastname}
+                            </div>
+                          <div className="character-card__firstname">
+                            {player.emptyslot ? "NEW SLOT" : player.firstname}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+                </div>
+              </div>
+
+              <div className="character-footer">
+                <button
+                  onClick={handleplay}
+                  onMouseEnter={() => nuicallback("hover")}
+                  className="play-button"
+                >
+                  <img className="w-[18px]" src={playicon} alt="" />
+                  <span>{config?.Lang?.enter || "Enter"}</span>
+                </button>
+              </div>
+            </div>
           </div>
-        </div>
+        )
       )}
     </>
   );
