@@ -40,6 +40,7 @@
 
 body {
   background: transparent;
+  overflow: hidden;
 }
 
 .range-slider::-webkit-slider-thumb {
